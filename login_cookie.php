@@ -2,7 +2,7 @@
 
 $conn = mysqli_connect("localhost","root","","amil");
 
-session_start();
+
 
 if(!$conn)
 {
@@ -12,7 +12,7 @@ else{
     $uname = $_REQUEST['uname'];
     $password =$_REQUEST['pswd'];
 
-    $_SESSION['uname'] = $uname;
+    setcookie("uname", $uname, time() + (86400 * 30), "/");
 
 
     $qry = "select * from login";
@@ -21,7 +21,7 @@ else{
     while($data=mysqli_fetch_assoc($res)){
         if($data['username']==$uname && $data['password']==$password)
         {
-            header("Location: welcome.php");
+            header("Location: welcome_cookie.php");
         }
         else{
             echo "invalid username or password";
